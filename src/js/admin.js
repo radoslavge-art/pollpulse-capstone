@@ -1,0 +1,8 @@
+import { supabase } from './supabase.js';
+import { bindNavigation, escapeHtml, requireUser, showAlert } from './ui.js';
+
+await bindNavigation(); const user = await requireUser(); if (!user) throw new Error('Sign-in required');
+const { data: role } = await supabase.from('user_roles').select('role').eq('user_id', user.id).single();
+const host = document.querySelector('#admin-content');
+if (role?.role !== 'admin') { host.innerHTML = '<div class="alert alert-warning">This area is restricted to administrators.</div>'; }
+else { const { data: polls, error } = await supabase.from('polls').select('id, title, is_published, created_at, profiles(display_name)').order('created_at', { ascending: false }); if (error) showAlert(error.message, 'danger'); else { host.innerHTML = `<div class="table-responsive bg-white rounded shadow-sm"><table class="table align-middle mb-0"><thead><tr><th>Poll</th><th>Author</th><th>Status</th><th></th></tr></thead><tbody>${polls.map(poll => `<tr><td>${escapeHtml(poll.title)}</td><td>${escapeHtml(poll.profiles?.display_name || 'Unknown')}</td><td>${poll.is_published ? '<span class="badge text-bg-success">Published</span>' : '<span class="badge text-bg-secondary">Hidden</span>'}</td><td><button class="btn btn-sm btn-outline-danger" data-id="${poll.id}" data-next="${!poll.is_published}">${poll.is_published ? 'Hide' : 'Publish'}</button></td></tr>`).join('')}</tbody></table></div>`; document.querySelectorAll('[data-id]').forEach(button => button.addEventListener('click', async () => { const { error: updateError } = await supabase.from('polls').update({ is_published: button.dataset.next === 'true' }).eq('id', button.dataset.id); if (updateError) showAlert(updateError.message, 'danger'); else location.reload(); })); } }

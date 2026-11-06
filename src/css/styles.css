@@ -1,0 +1,15 @@
+:root { --pp-navy: #172554; --pp-blue: #2563eb; --pp-mist: #eff6ff; }
+body { background: #f8fafc; color: #1e293b; }
+.navbar { background: var(--pp-navy); }
+.navbar-brand { font-weight: 800; letter-spacing: -.04em; }
+.hero { background: radial-gradient(circle at 80% 10%, #60a5fa 0, transparent 31%), linear-gradient(120deg, #172554, #1d4ed8); color: white; padding: 5.5rem 0; }
+.hero .lead { max-width: 38rem; color: #dbeafe; }
+.hero-icon { font-size: 5rem; opacity: .95; }
+.poll-card { transition: transform .18s ease, box-shadow .18s ease; }
+.poll-card:hover { transform: translateY(-4px); box-shadow: 0 .8rem 2rem rgba(30, 64, 175, .13)!important; }
+.page-head { background: var(--pp-mist); border-bottom: 1px solid #dbeafe; padding: 2.75rem 0; }
+.option-row { border: 1px solid #dbeafe; border-radius: .75rem; padding: 1rem; margin-bottom: .75rem; }
+.option-row:hover { background: #f8fbff; }
+.avatar-preview { width: 88px; height: 88px; object-fit: cover; border-radius: 50%; background: #dbeafe; }
+footer { color: #64748b; }
+@media (max-width: 576px) { .hero { padding: 3.5rem 0; } .hero-icon { display: none; } }

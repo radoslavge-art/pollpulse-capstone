@@ -1,0 +1,9 @@
+import { defineConfig } from 'vite';
+import { resolve } from 'node:path';
+
+export default defineConfig({
+  build: { rollupOptions: { input: {
+    home: resolve('index.html'), login: resolve('login.html'), register: resolve('register.html'),
+    poll: resolve('poll.html'), create: resolve('create-poll.html'), profile: resolve('profile.html'), admin: resolve('admin.html')
+  } } }
+});
