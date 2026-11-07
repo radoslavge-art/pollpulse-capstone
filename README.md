@@ -22,6 +22,24 @@ Browser pages → JavaScript modules → Supabase REST API
                                   └─ Storage bucket: avatars
 ```
 
+## Database schema
+
+```mermaid
+erDiagram
+  PROFILES ||--|| USER_ROLES : has
+  PROFILES ||--o{ POLLS : creates
+  POLLS ||--o{ POLL_OPTIONS : contains
+  PROFILES ||--o{ VOTES : submits
+  POLLS ||--o{ VOTES : receives
+  POLL_OPTIONS ||--o{ VOTES : selects
+
+  PROFILES { uuid id PK "matches auth.users id" }
+  USER_ROLES { uuid user_id PK "user or admin" }
+  POLLS { uuid id PK uuid owner_id FK }
+  POLL_OPTIONS { uuid id PK uuid poll_id FK }
+  VOTES { uuid id PK uuid poll_id FK uuid option_id FK uuid user_id FK }
+```
+
 ## Local setup
 
 1. Create a Supabase project.
@@ -33,6 +51,15 @@ Browser pages → JavaScript modules → Supabase REST API
 ## Build and deployment
 
 Run `pnpm build`; deploy the generated `dist/` folder to Netlify, Vercel, or another static host. Set the two `VITE_SUPABASE_*` variables in the host's build environment. Never expose a Supabase service-role key in the browser.
+
+## Assessment delivery checklist
+
+- [ ] A real Supabase project has the migration applied and the avatar bucket created.
+- [ ] Registration, login, voting, profile upload, and admin moderation have been tested in the deployed app.
+- [ ] A demo account and password are included for assessors.
+- [ ] The public repository contains at least 15 meaningful commits across three different days.
+- [ ] The deployment has been rebuilt with `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` available at build time.
+- [ ] Screenshots of the responsive UI and the deployed URL are included in the project documentation.
 
 ## Key folders
 
