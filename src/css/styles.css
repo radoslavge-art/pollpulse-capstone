@@ -2,6 +2,7 @@
 body { background: #f8fafc; color: #1e293b; }
 .navbar { background: var(--pp-navy); }
 .navbar-brand { font-weight: 800; letter-spacing: -.04em; }
+.theme-toggle { min-width: 2.4rem; }
 .hero { background: radial-gradient(circle at 80% 10%, #60a5fa 0, transparent 31%), linear-gradient(120deg, #172554, #1d4ed8); color: white; padding: 5.5rem 0; }
 .hero .lead { max-width: 38rem; color: #dbeafe; }
 .hero-icon { font-size: 5rem; opacity: .95; }
@@ -12,4 +13,21 @@ body { background: #f8fafc; color: #1e293b; }
 .option-row:hover { background: #f8fbff; }
 .avatar-preview { width: 88px; height: 88px; object-fit: cover; border-radius: 50%; background: #dbeafe; }
 footer { color: #64748b; }
+
+body.dark-mode { --pp-navy: #0b1220; --pp-blue: #60a5fa; --pp-mist: #172033; background: #0f172a; color: #e2e8f0; }
+body.dark-mode .navbar { background: #020617; }
+body.dark-mode .hero { background: radial-gradient(circle at 80% 10%, #2563eb 0, transparent 31%), linear-gradient(120deg, #020617, #172554); }
+body.dark-mode .page-head { border-color: #334155; }
+body.dark-mode .card, body.dark-mode .table-responsive { background: #172033 !important; color: #e2e8f0; }
+body.dark-mode .card { border: 1px solid #334155 !important; }
+body.dark-mode .text-secondary, body.dark-mode footer { color: #aab8cc !important; }
+body.dark-mode .option-row { border-color: #334155; }
+body.dark-mode .option-row:hover { background: #1e293b; }
+body.dark-mode .form-control, body.dark-mode .form-select { background: #0f172a; border-color: #475569; color: #e2e8f0; }
+body.dark-mode .form-control:focus, body.dark-mode .form-select:focus { background: #0f172a; color: #fff; border-color: #60a5fa; }
+body.dark-mode .form-control::placeholder { color: #94a3b8; }
+body.dark-mode .text-bg-light { background: #334155 !important; color: #e2e8f0 !important; }
+body.dark-mode .table { --bs-table-bg: #172033; --bs-table-color: #e2e8f0; --bs-table-border-color: #334155; }
+body.dark-mode .border-top, body.dark-mode hr { border-color: #334155 !important; }
+body.dark-mode a:not(.btn):not(.nav-link):not(.navbar-brand) { color: #93c5fd; }
 @media (max-width: 576px) { .hero { padding: 3.5rem 0; } .hero-icon { display: none; } }

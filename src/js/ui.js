@@ -1,5 +1,41 @@
 import { supabase, isConfigured, currentUser, profileFor } from './supabase.js';
 
+const themeKey = 'pollpulse-theme';
+
+function applyTheme(theme) {
+  const dark = theme === 'dark';
+  document.documentElement.dataset.bsTheme = theme;
+  document.body.classList.toggle('dark-mode', dark);
+  const toggle = document.querySelector('#theme-toggle');
+  if (toggle) {
+    toggle.innerHTML = dark ? '☀️ <span class="visually-hidden">Use light mode</span>' : '🌙 <span class="visually-hidden">Use dark mode</span>';
+    toggle.setAttribute('aria-label', dark ? 'Use light mode' : 'Use dark mode');
+    toggle.title = dark ? 'Use light mode' : 'Use dark mode';
+  }
+}
+
+function initTheme() {
+  const savedTheme = localStorage.getItem(themeKey);
+  const theme = savedTheme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  const navbarContainer = document.querySelector('nav .container');
+  if (navbarContainer && !document.querySelector('#theme-toggle')) {
+    const toggle = document.createElement('button');
+    toggle.id = 'theme-toggle';
+    toggle.type = 'button';
+    toggle.className = 'btn btn-outline-light btn-sm theme-toggle ms-2';
+    const authArea = document.querySelector('#auth-area');
+    if (authArea) navbarContainer.insertBefore(toggle, authArea); else navbarContainer.append(toggle);
+    toggle.addEventListener('click', () => {
+      const nextTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+      localStorage.setItem(themeKey, nextTheme);
+      applyTheme(nextTheme);
+    });
+  }
+  applyTheme(theme);
+}
+
+initTheme();
+
 export const demoPolls = [
   { id: 'demo-1', title: 'Where should our next team offsite be?', description: 'Vote for the city you would most like to visit.', category: 'Work', created_at: '2026-11-03', profiles: { display_name: 'Maya Chen' }, poll_options: [{ id: 'a', text: 'Sofia', vote_count: 18 }, { id: 'b', text: 'Plovdiv', vote_count: 14 }, { id: 'c', text: 'Varna', vote_count: 9 }] },
   { id: 'demo-2', title: 'Which workshop would you attend?', description: 'Help plan the next learning session.', category: 'Learning', created_at: '2026-11-02', profiles: { display_name: 'Alex Rivera' }, poll_options: [{ id: 'd', text: 'AI prompting', vote_count: 22 }, { id: 'e', text: 'Web accessibility', vote_count: 16 }] }
