@@ -23,8 +23,11 @@ function initTheme() {
     toggle.id = 'theme-toggle';
     toggle.type = 'button';
     toggle.className = 'btn btn-outline-light btn-sm theme-toggle ms-2';
+    const mobileMenuButton = navbarContainer.querySelector('.navbar-toggler');
     const authArea = document.querySelector('#auth-area');
-    if (authArea) navbarContainer.insertBefore(toggle, authArea); else navbarContainer.append(toggle);
+    if (mobileMenuButton) navbarContainer.insertBefore(toggle, mobileMenuButton);
+    else if (authArea) authArea.parentElement.insertBefore(toggle, authArea);
+    else navbarContainer.append(toggle);
     toggle.addEventListener('click', () => {
       const nextTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
       localStorage.setItem(themeKey, nextTheme);
