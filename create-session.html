@@ -1,1 +1,98 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Create a live session | PollPulse</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"><link rel="stylesheet" href="/src/css/styles.css"></head><body><nav class="navbar navbar-expand navbar-dark"><div class="container"><a class="navbar-brand" href="index.html">PollPulse</a><div class="navbar-nav me-auto"><a class="nav-link" href="index.html">Explore</a><a class="nav-link" href="join.html">Join room</a></div><div id="auth-area"></div></div></nav><header class="page-head"><div class="container"><p class="eyebrow mb-1">LIVE SESSION BUILDER</p><h1>Build the room conversation</h1><p class="mb-0 text-secondary">Use a template or assemble question slides your audience can answer from their phones.</p></div></header><main class="container py-5"><div class="row justify-content-center"><div class="col-xl-9"><div id="alert-host"></div><form id="session-form"><section class="card border-0 shadow-sm p-4 mb-4"><label class="form-label" for="session-title">Session title</label><input class="form-control mb-3" id="session-title" maxlength="140" placeholder="What should the team decide today?" required><label class="form-label" for="session-description">Description <span class="text-secondary">(optional)</span></label><textarea class="form-control" id="session-description" maxlength="500" rows="2"></textarea></section><section class="mb-4"><div class="d-flex justify-content-between align-items-center mb-2"><div><p class="eyebrow mb-1">STARTING POINT</p><h2 class="h4 mb-0">Choose a template</h2></div></div><div class="row row-cols-1 row-cols-md-3 g-3"><div class="col"><button class="template-card w-100 text-start" type="button" data-template="quiz"><strong>Quick quiz</strong><span>Knowledge check with answers and a leaderboard.</span></button></div><div class="col"><button class="template-card w-100 text-start" type="button" data-template="brainstorm"><strong>Team brainstorm</strong><span>Prompt, choices, and a moderated Q&amp;A.</span></button></div><div class="col"><button class="template-card w-100 text-start" type="button" data-template="pulse"><strong>Pulse check</strong><span>Short questions to understand the room.</span></button></div></div></section><section><div class="d-flex justify-content-between align-items-center mb-3"><div><p class="eyebrow mb-1">SLIDES</p><h2 class="h4 mb-0">Questions and information</h2></div><button class="btn btn-outline-primary btn-sm" type="button" id="add-slide">Add slide</button></div><div id="slides" class="vstack gap-3"></div></section><button class="btn btn-primary btn-lg mt-4">Publish live session</button></form></div></div></main><script type="module" src="/src/js/create-session.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Create a live session | PollPulse</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/src/css/styles.css">
+</head>
+<body>
+<nav class="navbar navbar-expand navbar-dark">
+<div class="container">
+<a class="navbar-brand" href="index.html">PollPulse</a>
+<div class="navbar-nav me-auto">
+<a class="nav-link" href="index.html">Explore</a>
+<a class="nav-link" href="join.html">Join room</a>
+</div>
+<div id="auth-area">
+</div>
+</div>
+</nav>
+<header class="page-head">
+<div class="container">
+<p class="eyebrow mb-1">LIVE SESSION BUILDER</p>
+<h1>Build the room conversation</h1>
+<p class="mb-0 text-secondary">Use a template or assemble question slides your audience can answer from their phones.</p>
+</div>
+</header>
+<main class="container py-5">
+<div class="row justify-content-center">
+<div class="col-xl-9">
+<div id="alert-host">
+</div>
+<form id="session-form">
+<section class="card border-0 shadow-sm p-4 mb-4">
+<label class="form-label" for="session-title">Session title</label>
+<input class="form-control mb-3" id="session-title" maxlength="140" placeholder="What should the team decide today?" required>
+<label class="form-label" for="session-description">Description <span class="text-secondary">(optional)</span>
+</label>
+<textarea class="form-control" id="session-description" maxlength="500" rows="2">
+</textarea>
+</section>
+<section class="mb-4">
+<div class="d-flex justify-content-between align-items-center mb-2">
+<div>
+<p class="eyebrow mb-1">STARTING POINT</p>
+<h2 class="h4 mb-0">Choose a template</h2>
+</div>
+</div>
+<div class="row row-cols-1 row-cols-md-3 g-3">
+<div class="col">
+<button class="template-card w-100 text-start" type="button" data-template="quiz">
+<strong>Quick quiz</strong>
+<span>Knowledge check with answers and a leaderboard.</span>
+</button>
+</div>
+<div class="col">
+<button class="template-card w-100 text-start" type="button" data-template="brainstorm">
+<strong>Team brainstorm</strong>
+<span>Prompt, choices, and a moderated Q&amp;A.</span>
+</button>
+</div>
+<div class="col">
+<button class="template-card w-100 text-start" type="button" data-template="pulse">
+<strong>Pulse check</strong>
+<span>Short questions to understand the room.</span>
+</button>
+</div>
+</div>
+</section>
+<section class="card border-0 shadow-sm p-4 mb-4">
+<p class="eyebrow mb-1">IMPORT AN OUTLINE</p>
+<h2 class="h5">Paste questions from your notes</h2>
+<p class="text-secondary small">One question per line. Separate answers with <code>|</code>, for example: <code>Which idea first? | Idea A | Idea B</code>.</p>
+<textarea class="form-control" id="outline-import" rows="4" placeholder="What should we choose? | Option A | Option B">
+</textarea>
+<button class="btn btn-outline-primary btn-sm mt-2" type="button" id="import-outline">Add outline to slides</button>
+</section>
+<section>
+<div class="d-flex justify-content-between align-items-center mb-3">
+<div>
+<p class="eyebrow mb-1">SLIDES</p>
+<h2 class="h4 mb-0">Questions and information</h2>
+</div>
+<button class="btn btn-outline-primary btn-sm" type="button" id="add-slide">Add slide</button>
+</div>
+<div id="slides" class="vstack gap-3">
+</div>
+</section>
+<button class="btn btn-primary btn-lg mt-4">Publish live session</button>
+</form>
+</div>
+</div>
+</main>
+<script type="module" src="/src/js/create-session.js">
+</script>
+</body>
+</html>

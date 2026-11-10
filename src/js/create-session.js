@@ -16,6 +16,14 @@ function renderSlides() {
 function addSlide(slide = { title: '', type: 'multiple_choice', options: ['Option 1', 'Option 2'] }) { slides.push(slide); renderSlides(); }
 document.querySelectorAll('[data-template]').forEach(button => button.addEventListener('click', () => { slides = templates[button.dataset.template].map(item => ({ ...item, options: [...item.options] })); renderSlides(); }));
 document.querySelector('#add-slide').addEventListener('click', () => addSlide());
+document.querySelector('#import-outline').addEventListener('click', () => {
+  const imported = document.querySelector('#outline-import').value.split('\n').map(line => line.split('|').map(part => part.trim()).filter(Boolean)).filter(parts => parts.length);
+  if (!imported.length) return showAlert('Add at least one outline line to import.', 'warning');
+  slides.push(...imported.map(parts => ({ title: parts[0], type: parts.length > 1 ? 'multiple_choice' : 'open_text', options: parts.slice(1) })));
+  document.querySelector('#outline-import').value = '';
+  renderSlides();
+  showAlert(`${imported.length} slide${imported.length === 1 ? '' : 's'} added from your outline.`, 'success');
+});
 slidesHost.addEventListener('input', event => { const card = event.target.closest('[data-index]'); if (!card) return; const slide = slides[Number(card.dataset.index)]; if (event.target.dataset.field === 'title') slide.title = event.target.value; if (event.target.dataset.field === 'options') { slide.options = event.target.value.split('\n').map(item => item.trim()).filter(Boolean); } });
 slidesHost.addEventListener('change', event => { const card = event.target.closest('[data-index]'); if (!card) return; const index = Number(card.dataset.index); const slide = slides[index]; if (event.target.dataset.field === 'type') { slide.type = event.target.value; if (slide.type === 'yes_no') slide.options = ['Yes', 'No']; if (['open_text', 'info'].includes(slide.type)) slide.options = []; renderSlides(); } if (event.target.dataset.field === 'correct') slide.correct = event.target.value === '' ? undefined : Number(event.target.value); });
 slidesHost.addEventListener('click', event => { const index = event.target.dataset.remove; if (index !== undefined) { slides.splice(Number(index), 1); renderSlides(); } });

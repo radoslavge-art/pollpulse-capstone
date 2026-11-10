@@ -10,6 +10,7 @@ PollPulse is a responsive multi-page poll application for creating questions, vo
 - Five related tables: profiles, user_roles, polls, poll_options, and votes
 - Avatar upload to Supabase Storage
 - Responsive Bootstrap UI and vanilla JavaScript modules
+- Live-session templates, outline import, presenter mode, QR phone joining, anonymous responses, reactions, moderated Q&A, quiz leaderboard, and CSV session reports
 
 ## Architecture
 
@@ -43,7 +44,7 @@ erDiagram
 ## Local setup
 
 1. Create a Supabase project.
-2. Run `supabase/migrations/20261106110000_pollpulse_schema.sql` in its SQL Editor, or use `supabase db push`.
+2. Run both migrations in order: `supabase/migrations/20261106110000_pollpulse_schema.sql` and `supabase/migrations/20261110090000_live_sessions.sql`.
 3. Copy `.env.example` to `.env` and add the project URL and publishable anon key.
 4. Install dependencies with `pnpm install` and start the app with `pnpm dev`.
 5. To make yourself an administrator after registering, run `update public.user_roles set role = 'admin' where user_id = '<your-user-id>';` in the SQL Editor.
