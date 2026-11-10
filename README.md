@@ -55,12 +55,28 @@ Run `pnpm build`; deploy the generated `dist/` folder to Netlify, Vercel, or ano
 
 ## Assessment delivery checklist
 
-- [ ] A real Supabase project has the migration applied and the avatar bucket created.
-- [ ] Registration, login, voting, profile upload, and admin moderation have been tested in the deployed app.
-- [ ] A demo account and password are included for assessors.
-- [ ] The public repository contains at least 15 meaningful commits across three different days.
-- [ ] The deployment has been rebuilt with `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` available at build time.
-- [ ] Screenshots of the responsive UI and the deployed URL are included in the project documentation.
+- [x] A real Supabase project has both migrations applied and the avatar bucket configured.
+- [ ] Registration, login, voting, profile upload, and admin moderation have been retested on the final deployment.
+- [ ] A demo account and password have been created for assessors.
+- [x] The public repository contains at least 15 meaningful commits across three different days.
+- [x] The deployment has been rebuilt with `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` available at build time.
+- [ ] Screenshots of the responsive UI and deployed URL have been attached to the final submission.
+
+## Demo walkthrough
+
+1. Register or log in, then create a standard poll with at least two choices.
+2. Open the poll, vote, and show the host's animated live-result bars.
+3. Select **Live session** from the homepage. Choose **Quick quiz**, or paste an outline such as `Which idea first? | Idea A | Idea B`.
+4. Publish the session, then use presenter mode to advance the slides.
+5. Scan the QR code with a second device. The audience can join in the browser without an account, answer, react with emoji, and ask a question.
+6. Back in presenter mode, approve a question and show the quiz leaderboard.
+7. Open **Session report** and download its CSV export.
+
+## Assessor access
+
+- Deployed app: `https://pollpulse-capstone-2026.rado-ccs.chatgpt.site`
+- Source repository: `https://github.com/radoslavge-art/pollpulse-capstone`
+- Before submission, add the agreed demo-account credentials here or in the submission form. Do not commit real personal credentials.
 
 ## Key folders
 
