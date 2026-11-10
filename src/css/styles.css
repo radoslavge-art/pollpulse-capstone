@@ -11,6 +11,7 @@ body { background: #f8fafc; color: #1e293b; }
 .landing-ballot-slot { background: #07132f; border-radius: 999px; height: .75rem; left: 2.9rem; position: absolute; top: 1.15rem; width: 5.7rem; }
 .landing-vote-card { align-items: center; background: #fff; border-radius: .8rem; box-shadow: 0 .7rem 1.6rem rgba(15, 23, 42, .25); color: #172554; display: flex; font-size: .85rem; font-weight: 800; gap: .45rem; justify-content: center; left: 50%; padding: .8rem .7rem; position: absolute; top: .7rem; transform: translateX(-50%); width: 116px; z-index: 1; }
 .landing-vote-card span { color: #16a34a; font-size: 1.2rem; }
+.landing-ballot-caption { bottom: 0; color: #dbeafe; left: 0; letter-spacing: .02em; position: absolute; text-align: center; width: 100%; }
 .landing-ballot.is-dropping .landing-vote-card { animation: ballot-drop 1s cubic-bezier(.2,.9,.25,1) forwards; }
 .landing-ballot.is-dropping .landing-ballot-box { animation: ballot-bounce .55s .68s ease-out; }
 @keyframes ballot-drop { 0% { transform: translate(-50%, 0); } 70% { opacity: 1; transform: translate(-50%, 113px) rotate(4deg) scale(.88); } 100% { opacity: 0; transform: translate(-50%, 130px) scale(.62); } }
