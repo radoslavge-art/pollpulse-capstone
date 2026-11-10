@@ -24,9 +24,10 @@ async function loadSession() {
 function render(slide) {
   const options = slide.session_options.sort((a, b) => a.position - b.position);
   const content = slide.kind === 'info' ? '<p class="lead text-secondary">Follow along with your host. The next question will appear here automatically.</p>' : slide.question_type === 'open_text' ? '<textarea class="form-control" id="text-response" rows="5" maxlength="500" placeholder="Write your response…" required></textarea>' : `<div class="vstack gap-2">${options.map(option => `<label class="audience-option"><input class="form-check-input" type="radio" name="option" value="${option.id}" required><span>${escapeHtml(option.label)}</span></label>`).join('')}</div>`;
-  host.innerHTML = `<p class="eyebrow text-center mb-2">YOU ARE IN · ${escapeHtml(session.title)}</p><section class="card border-0 shadow-sm p-4 p-md-5"><p class="text-secondary small mb-2">${slide.kind === 'info' ? 'LIVE UPDATE' : 'YOUR TURN'}</p><h1 class="h2 mb-4">${escapeHtml(slide.title)}</h1>${slide.kind === 'question' ? `<form id="response-form">${content}<button class="btn btn-primary w-100 mt-4">Send response</button></form>` : content}</section><section class="reaction-pad text-center mt-3"><p class="small text-secondary mb-2">React live</p><div>${['👏', '🔥', '💡', '😮', '❤️'].map(emoji => `<button class="reaction-button" type="button" data-emoji="${emoji}" aria-label="Send ${emoji} reaction">${emoji}</button>`).join('')}</div></section><p class="text-secondary small text-center mt-3">No account or app needed. One response per question.</p>`;
+  host.innerHTML = `<p class="eyebrow text-center mb-2">YOU ARE IN · ${escapeHtml(session.title)}</p><section class="card border-0 shadow-sm p-4 p-md-5"><p class="text-secondary small mb-2">${slide.kind === 'info' ? 'LIVE UPDATE' : 'YOUR TURN'}</p><h1 class="h2 mb-4">${escapeHtml(slide.title)}</h1>${slide.kind === 'question' ? `<form id="response-form">${content}<button class="btn btn-primary w-100 mt-4">Send response</button></form>` : content}</section><section class="reaction-pad text-center mt-3"><p class="small text-secondary mb-2">React live</p><div>${['👏', '🔥', '💡', '😮', '❤️'].map(emoji => `<button class="reaction-button" type="button" data-emoji="${emoji}" aria-label="Send ${emoji} reaction">${emoji}</button>`).join('')}</div></section><section class="card border-0 shadow-sm mt-3 p-4"><p class="eyebrow mb-1">ASK THE HOST</p><h2 class="h5">Have a question?</h2><form id="question-form"><textarea class="form-control" name="question" rows="2" maxlength="300" minlength="3" placeholder="Type your question…" required></textarea><button class="btn btn-outline-primary btn-sm mt-2">Send question</button></form></section><p class="text-secondary small text-center mt-3">No account or app needed. One response per question.</p>`;
   document.querySelector('#response-form')?.addEventListener('submit', event => submitResponse(event, slide));
   document.querySelectorAll('[data-emoji]').forEach(button => button.addEventListener('click', () => sendReaction(button)));
+  document.querySelector('#question-form').addEventListener('submit', sendQuestion);
 }
 
 async function submitResponse(event, slide) {
@@ -45,6 +46,15 @@ async function sendReaction(button) {
   const { error } = await supabase.from('audience_reactions').insert({ poll_id: session.id, guest_token: guestToken, emoji: button.dataset.emoji });
   if (error) showAlert(error.message, 'danger');
   setTimeout(() => button.classList.remove('is-sent'), 650);
+}
+
+async function sendQuestion(event) {
+  event.preventDefault();
+  const input = event.currentTarget.elements.question;
+  const { error } = await supabase.from('audience_questions').insert({ poll_id: session.id, guest_token: guestToken, body: input.value.trim() });
+  if (error) return showAlert(error.message, 'danger');
+  input.value = '';
+  showAlert('Question sent to the host for moderation.', 'success');
 }
 
 await loadSession();
